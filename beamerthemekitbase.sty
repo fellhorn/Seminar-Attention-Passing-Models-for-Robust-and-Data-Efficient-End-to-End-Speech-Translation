@@ -1,0 +1,81 @@
+%% LaTeX-Beamer template for KIT design
+%%
+%% Base template
+%%
+%% by Erik Burger, Christian Hammer
+%% title picture by Klaus Krogmann
+%%
+%% version 2.1
+%%
+%% mostly compatible to KIT corporate design v2.0
+%% http://intranet.kit.edu/gestaltungsrichtlinien.php
+%%
+%% Problems, bugs and comments to
+%% burger@kit.edu
+
+\usepackage[english]{babel}
+%\usepackage{ifthen} %For choosing the language, see below
+\usepackage{hyperref}
+\usepackage[absolute,overlay]{textpos}
+\usepackage{./semirounded}
+\usepackage[abs]{overpic}
+
+\usepackage[scaled=.92]{helvet}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes}
+
+%\setbeamercovered{none}
+\setbeamersize{text margin left=6mm,text margin right=6mm}
+
+\useinnertheme{rounded}
+\usepackage{./beamercolorthemekit}
+
+%save space in the footer
+\beamer@compresstrue
+
+%title image and logo
+\def\titleimage#1{\def\@titleimage{#1}}
+\def\titlelogo#1{\def\@titlelogo{#1}}
+
+\titleimage{titleimage2}
+\titlelogo{algoLogo}
+
+%CH: KIT-point
+\setbeamertemplate{itemize items}{
+\begin{pgfpicture}{0mm}{0mm}{1ex}{1ex}
+{\pgfsetcornersarced{\pgfpoint{.3ex}{.3ex}}
+\pgfpathmoveto{\pgfpoint{0cm}{1ex}}
+\pgfpathlineto{\pgfpoint{1ex}{1ex}}
+\pgfpathlineto{\pgfpoint{1ex}{0cm}}}
+{\pgfsetcornersarced{\pgfpoint{.3ex}{.3ex}}
+\pgfpathmoveto{\pgfpoint{1ex}{0cm}}
+\pgfpathlineto{\pgfpointorigin}
+\pgfpathlineto{\pgfpoint{0cm}{1ex}}}
+\color{kit-green100}
+\pgfusepath{fill}
+\end{pgfpicture}%
+}
+
+%% use this for setting the total page number
+\newcommand{\backupbegin}{
+   \newcounter{framenumbervorappendix}
+   \setcounter{framenumbervorappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumbervorappendix}}
+}
+
+\setbeamertemplate{navigation symbols}{}
+
+\newenvironment<>{fourthblock}[1]{%
+  \begin{actionenv}#2%
+      \def\insertblocktitle{#1}%
+      \par%
+      \mode<presentation>{%
+        \setbeamercolor{block title}{fg=white,bg=kit-orange100}
+       \setbeamercolor{block body}{fg=black,bg=kit-orange15}
+     }%
+      \usebeamertemplate{block begin}}
+    {\par\usebeamertemplate{block end}\end{actionenv}}
